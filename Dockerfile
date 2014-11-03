@@ -1,15 +1,23 @@
 #
 # NEBULA Ubuntu Base
 #
+# https://github.com/metavige/docker-ubuntu-base
+# 
 
 # Base image.
 FROM ubuntu:14.04
 
+MAINTAINER "metavige <metavige@gmail.com>"
+
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install Packages.
 RUN apt-get update -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get -qy install openssh-server ca-certificates pwgen && \
-    DEBIAN_FRONTEND=noninteractive apt-get -qy install supervisor git tar vim && \
-    DEBIAN_FRONTEND=noninteractive apt-get -qy install byobu curl htop man unzip wget && \
+    apt-get -qy install openssh-server ca-certificates pwgen && \
+    apt-get -qy install supervisor git tar vim && \
+    apt-get -qy install byobu curl htop man unzip wget && \
+    apt-get install -qy build-essential && \
+    apt-get install -qy software-properties-common && \
     apt-get clean --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
