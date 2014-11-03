@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install Packages.
 RUN apt-get update -y && \
     apt-get -qy install openssh-server ca-certificates pwgen && \
-    apt-get -qy install supervisor git tar vim && \
+    apt-get -qy install supervisor python-pip git tar vim && \
     apt-get -qy install byobu curl htop man unzip wget && \
     apt-get install -qy build-essential && \
     apt-get install -qy software-properties-common && \
@@ -27,6 +27,9 @@ RUN mkdir -p /var/run/sshd && \
     sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     sed -ri 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
 
+# Better logging of services in supervisor
+RUN pip install --quiet supervisor-stdout
+
 # For Store Root Password
 VOLUME /data/persistant
 
@@ -36,6 +39,8 @@ ADD run.sh /root/bin/run.sh
 
 RUN chmod a+x /root/bin/*.sh
 
+ADD supervisord.conf /etc/supervisor/supervisord.conf
+# Add sshd to supervisor
 ADD sshd.conf /etc/supervisor/conf.d/sshd.conf
 
 # Add files. for bash and git config
