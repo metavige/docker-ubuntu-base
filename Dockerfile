@@ -8,8 +8,8 @@ FROM ubuntu:14.04
 # Install Packages.
 RUN apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get -qy install openssh-server ca-certificates pwgen && \
-    DEBIAN_FRONTEND=noninteractive apt-get -qy supervisor git tar vim && \
-    DEBIAN_FRONTEND=noninteractive apt-get -qy byobu curl htop man unzip wget
+    DEBIAN_FRONTEND=noninteractive apt-get -qy install supervisor git tar vim && \
+    DEBIAN_FRONTEND=noninteractive apt-get -qy install byobu curl htop man unzip wget && \
     apt-get clean --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
