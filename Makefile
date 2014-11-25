@@ -1,3 +1,3 @@
-build:
-	docker build --rm -t nebula/ubuntu-base .
+install:
+	docker build --rm -t nebula/supervisord .
 

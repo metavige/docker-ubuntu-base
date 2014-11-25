@@ -1,8 +1,8 @@
 #
-# NEBULA Ubuntu Base
+# NEBULA supervisord
 #
 # https://github.com/metavige/docker-ubuntu-base
-# 
+#
 
 # Base image.
 FROM ubuntu:14.04
@@ -16,8 +16,6 @@ RUN apt-get update -y && \
     apt-get -qy install openssh-server ca-certificates pwgen && \
     apt-get -qy install supervisor python-pip git tar vim && \
     apt-get -qy install byobu curl htop man unzip wget && \
-    apt-get install -qy build-essential && \
-    apt-get install -qy software-properties-common && \
     apt-get clean --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -33,7 +31,7 @@ RUN pip install --quiet supervisor-stdout
 # For Store Root Password
 VOLUME /data/persistant
 
-RUN mkdir /root/bin 
+RUN mkdir /root/bin
 ADD set_root_pw.sh /root/bin/set_root_pw.sh
 ADD run.sh /root/bin/run.sh
 
